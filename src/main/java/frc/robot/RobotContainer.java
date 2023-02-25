@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.Arm.Arm;
+import frc.robot.subsystems.LED.InitializeLED;
+import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.Arm.DriveArmManually;
 import frc.robot.subsystems.Arm.Arm.SuperStructurePosition;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -36,7 +38,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final Arm m_arm = new  Arm();
-
+  LED led;
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -44,11 +46,12 @@ public class RobotContainer {
     buildDriveTestTab();
     buildArmTestTab();
     // Set subsystem default commands
-    m_drivetrain.setDefaultCommand(new DefaultDriveTrainCommand(m_drivetrain, m_driver_controller));    
+    m_drivetrain.setDefaultCommand(new DefaultDriveTrainCommand(m_drivetrain, m_driver_controller));   
+    led.setDefaultCommand(new InitializeLED(led)); 
     // Configure the button bindings
     configureButtonBindings();
   }
-
+  
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
