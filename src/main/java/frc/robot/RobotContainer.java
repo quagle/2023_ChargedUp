@@ -38,7 +38,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final Arm m_arm = new  Arm();
-  LED led;
+  private LED m_led = new LED();
   //private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -47,9 +47,11 @@ public class RobotContainer {
     buildArmTestTab();
     // Set subsystem default commands
     m_drivetrain.setDefaultCommand(new DefaultDriveTrainCommand(m_drivetrain, m_driver_controller));   
-    led.setDefaultCommand(new InitializeLED(led)); 
+    // m_led.setDefaultCommand(new InitializeLED());
     // Configure the button bindings
     configureButtonBindings();
+    m_led.setLED(1,4);
+    m_led.setLED(3,2);
   }
   
   /**
@@ -126,7 +128,7 @@ public class RobotContainer {
     // PID Tuning
     driveTestTab.add("Turn PID", m_drivetrain.get_dt_turn_pidcontroller()).withPosition(5, 0);
     driveTestTab.add("Turn with PID", new TurnToAngleWithGyroTest(m_drivetrain)).withPosition(6, 0).withSize(2, 1);
-    
+
   }
 
   private void buildArmTestTab() {

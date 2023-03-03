@@ -12,16 +12,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 public class InitializeLED extends InstantCommand {
   private final LED m_led = new LED(); //Set controller address
 
-  public InitializeLED(LED led) {
+  public InitializeLED() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_led);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    m_led.clearLED(); //Turn off LED strip at start
-
-    m_led.setLED(1,1); //Set strip 1 to function 1
   }
 }
