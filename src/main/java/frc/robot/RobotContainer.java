@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.Arm.Arm;
-import frc.robot.subsystems.LED.InitializeLED;
 import frc.robot.subsystems.LED.LED;
 import frc.robot.subsystems.Arm.DriveArmManually;
 import frc.robot.subsystems.Arm.Arm.SuperStructurePosition;
@@ -50,8 +49,6 @@ public class RobotContainer {
     // m_led.setDefaultCommand(new InitializeLED());
     // Configure the button bindings
     configureButtonBindings();
-    m_led.setLED(1,4);
-    m_led.setLED(3,2);
   }
   
   /**

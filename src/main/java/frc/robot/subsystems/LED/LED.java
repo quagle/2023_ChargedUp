@@ -1,10 +1,16 @@
 package frc.robot.subsystems.LED;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
+import java.util.ArrayList;
+
 
 public class LED extends SubsystemBase{
+    ArrayList<Byte> byteList = new ArrayList<Byte>();
     private static final int kDeviceAddress = 4;
     private I2C i2c;
+    byte data = 0;
+    byte oldData = 0;
+    int i = 0;
 
     public LED() {
         i2c = new I2C(I2C.Port.kMXP, kDeviceAddress);
@@ -19,27 +25,21 @@ public class LED extends SubsystemBase{
     }
 
     public void clearLED() {
-        int d1= (1*16); //Strip number times 16 to shift to first 4 bits of byte
-        int d2= (2*16);
-        int d3= (3*16);
-        int d4= (4*16);
-        writeByte(d1); 
-        writeByte(d2);
-        writeByte(d3);
-        writeByte(d4); //This is a mess, add a special clear case in Arduino later
+        byteList.add((byte)0);
     }
 
-    public void setLED(int strip, int function) { //X marks what strip to use, Y marks function
-        int data = ((strip*16)|function);
-        writeByte(data);
-        System.out.println("test");
+    public void setLED(int strip, int function) {
+        data = (byte)((strip*16)|function);
+        byteList.add(data);
     }
-////////////////////// REMOVE AFTER TESTING //////////////////////
-    // @Override
-    // public void periodic(){
-    //     System.out.println("LEDSubsystem");
-    //     clearLED(); //Turn off LED strip at start
-        
-    //     setLED(1,1); //Set strip 1 to function 1
-    // }
+
+    @Override
+    public void periodic(){
+        if (i == 10 & byteList.size() > 0) {
+            writeByte(byteList.get(0));
+            byteList.remove(0);
+            i = 0;
+        }
+        i++;
+    }
 }
