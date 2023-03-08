@@ -3,14 +3,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.I2C;
 import java.util.ArrayList;
 
-
 public class LED extends SubsystemBase{
-    ArrayList<Byte> byteList = new ArrayList<Byte>();
+    private ArrayList<Byte> byteList = new ArrayList<Byte>();
     private static final int kDeviceAddress = 4;
     private I2C i2c;
-    byte data = 0;
-    byte oldData = 0;
-    int i = 0;
+    private int i = 0;
 
     public LED() {
         i2c = new I2C(I2C.Port.kMXP, kDeviceAddress);
@@ -26,10 +23,10 @@ public class LED extends SubsystemBase{
 
     public void clearLED() {
         byteList.add((byte)0);
-    }
+    } 
 
     public void setLED(int strip, int function) {
-        data = (byte)((strip*16)|function);
+        byte data = (byte)((strip*16)|function);
         byteList.add(data);
     }
 
